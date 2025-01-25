@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BeastTok - Cyberpunk Edition</title>
+        <link rel="icon" href="img.png" type="image/png" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Kanit:wght@300;600&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        />
+        <style>
+            :root {
+                --tiktok-blue: #69c9d0;
+                --mrbeast-blue: #00aeef;
+                --grid-color: rgba(105, 201, 208, 0.3);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Kanit", sans-serif;
+                background: #000;
+                color: white;
+                overflow-x: hidden;
+            }
+
+            /* Decorative Corner Shapes */
+            .corner-shape {
+                position: fixed;
+                width: 300px;
+                height: 300px;
+                opacity: 0.1;
+                pointer-events: none;
+                z-index: -1;
+            }
+
+            .corner-shape.tl {
+                top: -150px;
+                left: -150px;
+                background: radial-gradient(
+                    circle,
+                    var(--tiktok-blue),
+                    transparent 70%
+                );
+            }
+
+            .corner-shape.tr {
+                top: -150px;
+                right: -150px;
+                background: radial-gradient(
+                    circle,
+                    var(--mrbeast-blue),
+                    transparent 70%
+                );
+                transform: rotate(90deg);
+            }
+
+            .corner-shape.bl {
+                bottom: -150px;
+                left: -150px;
+                background: conic-gradient(
+                    from 90deg,
+                    var(--tiktok-blue),
+                    var(--mrbeast-blue)
+                );
+                clip-path: polygon(0 0, 100% 0, 0 100%);
+                transform: rotate(-45deg);
+            }
+
+            .corner-shape.br {
+                bottom: -150px;
+                right: -150px;
+                background: conic-gradient(
+                    from 180deg,
+                    var(--mrbeast-blue),
+                    var(--tiktok-blue)
+                );
+                clip-path: polygon(100% 0, 100% 100%, 0 100%);
+                transform: rotate(45deg);
+            }
+
+            .logo{
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            /* Interactive Grid */
+            #cyberCanvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: -1;
+            }
+
+            /* Gradient Stroke Text */
+            .gradient-stroke {
+                font-family: "Orbitron", sans-serif;
+                font-size: 4rem;
+                position: relative;
+                display: inline-block;
+                -webkit-text-stroke: 2px transparent;
+                background: linear-gradient(
+                    45deg,
+                    var(--tiktok-blue),
+                    var(--mrbeast-blue)
+                );
+                background-clip: text;
+                -webkit-background-clip: text;
+                animation: gradient-flow 3s linear infinite;
+            }
+
+            @keyframes gradient-flow {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            /* Futuristic Buy Button */
+            .buy-button {
+                padding: 1.2rem 3rem;
+                font-size: 1.3rem;
+                background: linear-gradient(
+                    45deg,
+                    var(--tiktok-blue),
+                    var(--mrbeast-blue)
+                );
+                border: none;
+                color: white;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                margin-top: 2rem;
+                display: inline-block;
+                text-decoration: none;
+                border-radius: 8px;
+                box-shadow: 0 0 15px rgba(105, 201, 208, 0.4);
+            }
+
+            .buy-button:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 25px rgba(105, 201, 208, 0.8);
+            }
+
+            /* Social Icons */
+            .social-icons {
+                display: flex;
+                gap: 1.5rem;
+                margin-top: 1.5rem;
+            }
+
+            .social-icons a {
+                font-size: 2rem;
+                transition: transform 0.3s ease;
+            }
+
+            .social-icons a:hover {
+                transform: translateY(-5px);
+            }
+
+            .fa-discord {
+                color: #5865f2;
+            }
+            .fa-tiktok {
+                color: #000;
+                background: white;
+                border-radius: 4px;
+            }
+            .fa-twitter {
+                color: #1da1f2;
+            }
+            .fa-youtube {
+                color: #ff0000;
+            }
+
+            /* Content Sections */
+            section {
+                padding: 0px 10%;
+                position: relative;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .glass-card {
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(10px);
+                padding: 2rem;
+                border-radius: 15px;
+                margin: 1.5rem 0;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            /* Mobile Responsiveness */
+            @media (max-width: 768px) {
+                .gradient-stroke {
+                    font-size: 2.5rem;
+                    -webkit-text-stroke: 1.5px transparent;
+                }
+
+                .buy-button {
+                    padding: 1rem 2rem;
+                    font-size: 1.1rem;
+                }
+
+                section {
+                    padding: 60px 5%;
+                }
+
+                .corner-shape {
+                    width: 200px;
+                    height: 200px;
+                }
+
+                .corner-shape.tl,
+                .corner-shape.tr {
+                    top: -100px;
+                }
+
+                .corner-shape.bl,
+                .corner-shape.br {
+                    bottom: -100px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Decorative Corner Shapes -->
+        <div class="corner-shape tl"></div>
+        <div class="corner-shape tr"></div>
+        <div class="corner-shape bl"></div>
+        <div class="corner-shape br"></div>
+
+        <!-- Interactive Grid -->
+        <canvas id="cyberCanvas"></canvas>
+
+        <section id="home">
+            <div class="logo">
+                <img src="img.png" alt="logo" width="100" height="100" />
+                <h1 class="gradient-stroke">BEASTTOK</h1>
+            </div>
+            <div class="glass-card">
+                <p style="font-size: 1.4rem; line-height: 1.6; margin: 0">
+                    MrBeast's official TikTok revolution memecoin<br />
+                    Powered by viral generosity
+                </p>
+                <a href="https://pump.fun" target="_blank" class="buy-button"
+                    >BUY NOW ON PUMP.FUN</a
+                >
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="glass-card">
+                <h2 style="color: var(--tiktok-blue); margin-bottom: 1rem">
+                    Description
+                </h2>
+                <p style="opacity: 0.9">
+                    BeastTok combines the visionary spirit of MrBeast with the
+                    viral power of TikTok. Inspired by the idea of MrBeast
+                    buying TikTok, this memecoin is built for creators, fans,
+                    and anyone who believes in the power of innovation. Simple,
+                    bold, and community-driven, BeastTok is more than a
+                    meme—it’s a movement. Join us and be part of the next big
+                    thing in crypto.
+                </p>
+            </div>
+        </section>
+
+        <section id="community">
+            <div class="glass-card">
+                <h2 style="color: var(--mrbeast-blue); margin-bottom: 1.5rem">
+                    Join the Movement
+                </h2>
+                <div class="social-icons">
+                    <a href="#" target="_blank"
+                        ><i class="fab fa-discord"></i
+                    ></a>
+                    <a href="#" target="_blank"
+                        ><i class="fab fa-twitter"></i
+                    ></a>
+                    <a href="#" target="_blank"
+                        ><i class="fab fa-youtube"></i
+                    ></a>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            // Interactive Grid Effect
+            const canvas = document.getElementById("cyberCanvas");
+            const ctx = canvas.getContext("2d");
+            let mouseX = 0,
+                mouseY = 0;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            function drawGrid() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const baseSize = 30;
+                const maxSize = 50;
+                const baseOpacity = 0.4;
+
+                for (let x = 0; x < canvas.width; x += baseSize) {
+                    for (let y = 0; y < canvas.height; y += baseSize) {
+                        const distance = Math.sqrt(
+                            (x - mouseX) ** 2 + (y - mouseY) ** 2
+                        );
+                        const intensity = Math.min(
+                            1,
+                            Math.max(0, 1 - distance / 100)
+                        );
+                        const size =
+                            baseSize + (maxSize - baseSize) * intensity;
+
+                        ctx.strokeStyle = `rgba(105, 201, 208, ${
+                            baseOpacity + intensity * 0.4
+                        })`;
+                        ctx.lineWidth = 1 + intensity * 3;
+
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x + size, y);
+                        ctx.lineTo(x + size, y + size);
+                        ctx.stroke();
+                    }
+                }
+
+                requestAnimationFrame(drawGrid);
+            }
+
+            // Mouse Tracking
+            document.addEventListener("mousemove", (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Initialization
+            window.addEventListener("resize", resizeCanvas);
+            resizeCanvas();
+            drawGrid();
+        </script>
+    </body>
+</html>
